@@ -1,44 +1,43 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<GrupoMontanaData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:noNamespaceSchemaLocation="grupoMontana.xsd">
-
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GrupoMontanaData>
     <ListadoSenderistas>
         <Senderista id="S-001">
             <Nombre>Diego Fernandez Lopez</Nombre>
             <FechaAlta>2007-07-01</FechaAlta>
-            <Edad>37</Edad> 
+            <Edad>37</Edad>
             <Sexo>HOMBRE</Sexo>
         </Senderista>
-
         <Senderista id="S-002">
             <Nombre>José Luis Arias Cobreros</Nombre>
             <FechaAlta>2000-06-20</FechaAlta>
             <Edad>45</Edad>
             <Sexo>HOMBRE</Sexo>
         </Senderista>
-
         <Senderista id="S-003">
             <Nombre>German Carreño</Nombre>
             <FechaAlta>2003-06-20</FechaAlta>
             <Edad>45</Edad>
             <Sexo>HOMBRE</Sexo>
         </Senderista>
-        
         <Senderista id="S-004">
             <Nombre>Cristina Rodríguez Menéndez</Nombre>
             <FechaAlta>2020-07-10</FechaAlta>
             <Edad>30</Edad>
             <Sexo>MUJER</Sexo>
         </Senderista>
-
         <Senderista id="S-005">
             <Nombre>Alejandra Tomas Fernandez</Nombre>
             <FechaAlta>2021-10-10</FechaAlta>
             <Edad>52</Edad>
             <Sexo>MUJER</Sexo>
         </Senderista>
+        <Senderista id="S-023">
+            <Nombre>Nuevo Socio Primero</Nombre>
+            <FechaAlta>2026-01-26</FechaAlta>
+            <Edad>60</Edad>
+            <Sexo>Hombre</Sexo>
+        </Senderista>
     </ListadoSenderistas>
-
     <CatalogoRutas>
         <Ruta id="R-100">
             <Nombre>Torrecerredo</Nombre>
@@ -46,42 +45,36 @@
             <DesnivelPositivo>1690</DesnivelPositivo>
             <Dificultad>EXTREMA</Dificultad>
         </Ruta>
-
         <Ruta id="R-101">
             <Nombre>Peña Ubiña</Nombre>
-            <DistanciaKm>12</DistanciaKm>
+            <DistanciaKm>12.0</DistanciaKm>
             <DesnivelPositivo>1360</DesnivelPositivo>
             <Dificultad>ALTA</Dificultad>
         </Ruta>
-        
         <Ruta id="R-102">
             <Nombre>Circular Tiatordos</Nombre>
             <DistanciaKm>17.5</DistanciaKm>
             <DesnivelPositivo>1700</DesnivelPositivo>
             <Dificultad>ALTA</Dificultad>
         </Ruta>
-        
         <Ruta id="R-103">
             <Nombre>Pico Torres</Nombre>
             <DistanciaKm>7.5</DistanciaKm>
             <DesnivelPositivo>600</DesnivelPositivo>
             <Dificultad>MEDIA</Dificultad>
         </Ruta>
-        
         <Ruta id="R-104">
             <Nombre>Pico Pienzu</Nombre>
             <DistanciaKm>11.7</DistanciaKm>
             <DesnivelPositivo>750</DesnivelPositivo>
             <Dificultad>BAJA</Dificultad>
         </Ruta>
-        
         <Ruta id="R-105">
             <Nombre>Jultayu</Nombre>
-            <DistanciaKm>21</DistanciaKm>
+            <DistanciaKm>21.0</DistanciaKm>
             <DesnivelPositivo>1800</DesnivelPositivo>
             <Dificultad>ALTA</Dificultad>
         </Ruta>
- 
         <Ruta id="R-106">
             <Nombre>Pico Monfrechu</Nombre>
             <DistanciaKm>8.5</DistanciaKm>
@@ -89,9 +82,7 @@
             <Dificultad>BAJA</Dificultad>
         </Ruta>
     </CatalogoRutas>
-    
     <RegistroActividades>
-        
         <Actividad id="ACT-01">
             <RutaId>R-100</RutaId>
             <Fecha>2025-01-07</Fecha>
@@ -107,7 +98,6 @@
             <Valoracion>3</Valoracion>
             <Comentarios>Salida oficial de Enero</Comentarios>
         </Actividad>
-
         <Actividad id="ACT-02">
             <RutaId>R-102</RutaId>
             <Fecha>2025-02-14</Fecha>
@@ -124,7 +114,6 @@
             <Valoracion>5</Valoracion>
             <Comentarios>Salida de Febrero</Comentarios>
         </Actividad>
-
         <Actividad id="ACT-03">
             <RutaId>R-101</RutaId>
             <Fecha>2025-03-21</Fecha>
@@ -142,13 +131,12 @@
             <Valoracion>2</Valoracion>
             <Comentarios>Salida de Marzo</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-04">
             <RutaId>R-105</RutaId>
             <Fecha>2025-04-30</Fecha>
             <TiempoEmpleado>
                 <Horas>9</Horas>
-                <Minutos>07</Minutos>
+                <Minutos>7</Minutos>
             </TiempoEmpleado>
             <Participantes>
                 <IdSenderista>S-001</IdSenderista>
@@ -158,7 +146,6 @@
             <Valoracion>3</Valoracion>
             <Comentarios>Salida de Abril</Comentarios>
         </Actividad>
-   
         <Actividad id="ACT-05">
             <RutaId>R-100</RutaId>
             <Fecha>2025-05-14</Fecha>
@@ -173,7 +160,6 @@
             <Valoracion>5</Valoracion>
             <Comentarios>Salida de Mayo</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-06">
             <RutaId>R-102</RutaId>
             <Fecha>2025-06-03</Fecha>
@@ -189,13 +175,12 @@
             <Valoracion>4</Valoracion>
             <Comentarios>Salida de Junio</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-07">
             <RutaId>R-105</RutaId>
             <Fecha>2025-07-30</Fecha>
             <TiempoEmpleado>
                 <Horas>8</Horas>
-                <Minutos>08</Minutos>
+                <Minutos>8</Minutos>
             </TiempoEmpleado>
             <Participantes>
                 <IdSenderista>S-004</IdSenderista>
@@ -203,7 +188,6 @@
             <Valoracion>4</Valoracion>
             <Comentarios>Salida de Julio</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-08">
             <RutaId>R-104</RutaId>
             <Fecha>2025-08-24</Fecha>
@@ -219,7 +203,6 @@
             <Valoracion>3</Valoracion>
             <Comentarios>Salida de Agosto</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-09">
             <RutaId>R-102</RutaId>
             <Fecha>2025-09-03</Fecha>
@@ -234,7 +217,6 @@
             <Valoracion>5</Valoracion>
             <Comentarios>Salida de Septiembre</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-10">
             <RutaId>R-101</RutaId>
             <Fecha>2025-10-01</Fecha>
@@ -251,7 +233,6 @@
             <Valoracion>2</Valoracion>
             <Comentarios>Salida de Octubre</Comentarios>
         </Actividad>
-    
         <Actividad id="ACT-11">
             <RutaId>R-103</RutaId>
             <Fecha>2025-11-11</Fecha>
@@ -267,7 +248,6 @@
             <Valoracion>2</Valoracion>
             <Comentarios>Salida de Noviembre</Comentarios>
         </Actividad>
-
         <Actividad id="ACT-12">
             <RutaId>R-106</RutaId>
             <Fecha>2025-12-24</Fecha>
@@ -285,7 +265,5 @@
             <Valoracion>1</Valoracion>
             <Comentarios>Salida de Navidad al Monfrechu</Comentarios>
         </Actividad>
-
     </RegistroActividades>
-
 </GrupoMontanaData>
