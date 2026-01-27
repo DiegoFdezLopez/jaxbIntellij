@@ -1,6 +1,8 @@
 package com.grupoMontana.xml.logica;
+
 import java.io.File;
 import java.util.List;
+
 import jakarta.xml.bind.*; // JAXB
 import com.grupoMontana.xml.modelo.*; // CLASES CREADAS POR MAVEN.
 
@@ -8,7 +10,6 @@ import com.grupoMontana.xml.modelo.*; // CLASES CREADAS POR MAVEN.
 public class GrupoMontanaLibreria {
     //VARIABLES PARA GUARDAR TODOS LOS DATOS DEL GRUPO DE MONTAÑA
     private GrupoMontanaData datos;
-
     //ARCHIVO CON EL QUE VAMOS A TRABAJAR
     private File archivoXML = new File("src/main/resources/grupoMontanaData.xml");
 
@@ -37,13 +38,13 @@ public class GrupoMontanaLibreria {
      */
     public void guardarDatos() {
         try {
-            // 1. Preparamos el contexto JAXB (el traductor)
+            //Preparamos el contexto JAXB
             JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
-            // 2. Creamos el Marshaller (el escriba)
+            //Creamos el Marshaller
             Marshaller marshaller = contexto.createMarshaller();
-            // 3. Le decimos que ponga saltos de línea y sangría para que el XML se lea bien
+            //Le decimos que ponga saltos de línea y sangría para que el XML se lea bien
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            // 4. ¡GUARDAMOS! (Escribimos el objeto 'datos' en 'archivoXML')
+            //Escribimos el objeto 'datos' en 'archivoXML'
             marshaller.marshal(datos, archivoXML);
             System.out.println("Cambios guardados en el fichero XML.");
         } catch (JAXBException e) {
@@ -51,6 +52,7 @@ public class GrupoMontanaLibreria {
         }
     }
     //METODOS
+
     /**
      * Busca un senderista por su ID usando un bucle clásico.
      *
@@ -84,10 +86,10 @@ public class GrupoMontanaLibreria {
     }
 
     // MEDIA EDAD GRUPO MONTAÑA
-    public double edadMediaSenderistas (){
-        double sumaEdades=0;
+    public double edadMediaSenderistas() {
+        double sumaEdades = 0;
         List<TipoSenderista> listaSenderistas = datos.getListadoSenderistas().getSenderista();
-        for(TipoSenderista senderista : listaSenderistas){
+        for (TipoSenderista senderista : listaSenderistas) {
             sumaEdades += senderista.getEdad();
         }
         return sumaEdades / listaSenderistas.size();
@@ -117,25 +119,62 @@ public class GrupoMontanaLibreria {
             System.out.println("Error: Datos vacíos.");
             return;
         }
-        // 1. Modificamos la memoria (RAM)
+        //GUARDADO EN RAM
         datos.getListadoSenderistas().getSenderista().add(nuevoSenderista);
 
-        // 2. 👇 AÑADE ESTO: Guardamos en el disco duro (Persistencia)
+        //GUARDADO EN DISCO DURO (PERSISTENCIA)
         this.guardarDatos();
-
         System.out.println("Senderista añadido y guardado.");
     }
 
+    public void crearActividad(TipoActividad nuevaActividad) {
+        if (nuevaActividad == null) {
+            System.out.println("Datos de actividad vacios");
+            return;
+        }
+        //GUARDADO EN RAM
+        datos.getRegistroActividades().getActividad().add(nuevaActividad);
+        //GUARDADO EN DISCO DURO (PERSISTENCIA)
+        this.guardarDatos();
+        System.out.println("Actividad añadida y guardada.");
+    }
+
+    //BORRAR SENDERISTA POR ID
+    public boolean bajaSenderista(String idParaBorrar) {
+        // LISTA DE SENDERISTAS
+        List<TipoSenderista> lista = datos.getListadoSenderistas().getSenderista();
+        // A QUIEN NOS VAMOS A CARGAR
+        TipoSenderista encontrado = null;
+
+        // RECORRER LA LISTA
+        for (TipoSenderista s : lista) {
+            if (s.getId().trim().equalsIgnoreCase(idParaBorrar.trim())) {
+                encontrado = s;
+                break;
+            }
+        }
+
+        // SI ENCONTRAMOS, BORRAMOS, GUARDAMOS PARA QUE PERSISTA
+        if (encontrado != null) {
+            lista.remove(encontrado);
+            this.guardarDatos();
+            return true;              // EXITO
+        } else {
+            return false;             //NO EXISTE
+        }
+    }
 
 
+    //METODOS PARA PROBAR
+    // Método para obtener la lista completa de actividades
+    public List<TipoActividad> getListaActividades() {
+        return datos.getRegistroActividades().getActividad();
+    }
 
-
-
-
-
-
-
-
+    // Método para obtener la lista completa de senderistas
+    public List<TipoSenderista> getListaSenderistas() {
+        return datos.getListadoSenderistas().getSenderista();
+    }
 
 
 
@@ -170,4 +209,4 @@ public class GrupoMontanaLibreria {
 //        }
 
 
-    }
+}

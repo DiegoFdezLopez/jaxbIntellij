@@ -26,14 +26,6 @@
             <Edad>52</Edad>
             <Sexo>MUJER</Sexo>
         </Senderista>
-        <Senderista id="S-023">
-            <Nombre>Nuevo Socio Primero</Nombre>
-            <Edad>60</Edad>
-            <Sexo>Hombre</Sexo>
-        </Senderista>
-        <Senderista>
-            <Edad>0</Edad>
-        </Senderista>
     </ListadoSenderistas>
     <CatalogoRutas>
         <Ruta id="R-100">
@@ -261,6 +253,21 @@
             </Participantes>
             <Valoracion>1</Valoracion>
             <Comentarios>Salida de Navidad al Monfrechu</Comentarios>
+        </Actividad>
+        <Actividad id="ACT-14">
+            <RutaId>R-005</RutaId>
+            <Fecha>2026-01-25</Fecha>
+            <TiempoEmpleado>
+                <Horas>7</Horas>
+                <Minutos>32</Minutos>
+            </TiempoEmpleado>
+            <Participantes>
+                <IdSenderista>S-001</IdSenderista>
+                <IdSenderista>S-004</IdSenderista>
+                <IdSenderista>S-005</IdSenderista>
+            </Participantes>
+            <Valoracion>4</Valoracion>
+            <Comentarios>Ruta agregada para probar el metodo</Comentarios>
         </Actividad>
     </RegistroActividades>
 </GrupoMontanaData>
