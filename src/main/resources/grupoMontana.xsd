@@ -5,7 +5,6 @@
     <xs:complexType name="TipoSenderista">
         <xs:sequence>
             <xs:element name="Nombre" type="xs:string"/>
-            <xs:element name="FechaAlta" type="xs:date"/>
             <xs:element name="Edad">
                 <xs:simpleType>
                     <xs:restriction base="xs:int">

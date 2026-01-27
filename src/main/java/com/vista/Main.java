@@ -2,7 +2,6 @@ package com.vista;
 
 import com.grupoMontana.xml.modelo.TipoActividad;
 import com.grupoMontana.xml.modelo.TipoSenderista;
-import com.grupoMontana.xml.modelo.GrupoMontanaData;
 import com.grupoMontana.xml.logica.GrupoMontanaLibreria;
 
 // 3. IMPORTS DE JAVA (Estándar)
@@ -17,9 +16,9 @@ public class Main {
         GrupoMontanaLibreria gestion = new GrupoMontanaLibreria();
         try {
             gestion.cargarDatos();
-            System.out.println("✅ Datos cargados correctamente del XML.");
+            System.out.println("Datos cargados correctamente del XML.");
         } catch (Exception e) {
-            System.out.println("❌ Error crítico cargando datos: " + e.getMessage());
+            System.out.println("Error crítico cargando datos: " + e.getMessage());
             return; // Si falla la carga, cerramos el programa
         }
         Scanner sc = new Scanner(System.in);
@@ -113,22 +112,9 @@ public class Main {
                     if(sc.hasNextInt()) {
                         edad = sc.nextInt();
                     } else {
-                        System.out.println("⚠️ Edad no válida. Se asignará 0.");
+                        System.out.println("Edad no válida. Se asignará 0.");
                         sc.next(); // Limpiamos lo que escribió mal
                     }
-//GRACIAS A CHATGPT DESCUBRÍ EL LIO DE LAS FECHAS EN JAVA Y XML METODO AL FINAL DE ESTA CLASE
-                    System.out.print("Introduce Fecha Alta (AAAA-MM-DD): ");
-                    String texto = sc.next();
-
-                    nuevoSocio.setFechaAlta( convertirFecha(texto) );
-
-                    // 3. Creamos el objeto 'TipoSenderista' y lo rellenamos
-                    nuevoSocio.setId(id);
-                    nuevoSocio.setNombre(nombre);
-                    nuevoSocio.setEdad(edad);
-                    nuevoSocio.setSexo(sexo);
-                    // Si tu XML tiene más campos (nacionalidad, etc.), puedes ponerlos aquí también.
-
                     // 4. Llamamos a tu librería para que lo guarde
                     gestion.altaSenderista(nuevoSocio);
                     break;

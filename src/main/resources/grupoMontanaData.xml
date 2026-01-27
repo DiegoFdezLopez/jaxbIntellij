@@ -3,39 +3,36 @@
     <ListadoSenderistas>
         <Senderista id="S-001">
             <Nombre>Diego Fernandez Lopez</Nombre>
-            <FechaAlta>2007-07-01</FechaAlta>
             <Edad>37</Edad>
             <Sexo>HOMBRE</Sexo>
         </Senderista>
         <Senderista id="S-002">
             <Nombre>José Luis Arias Cobreros</Nombre>
-            <FechaAlta>2000-06-20</FechaAlta>
             <Edad>45</Edad>
             <Sexo>HOMBRE</Sexo>
         </Senderista>
         <Senderista id="S-003">
             <Nombre>German Carreño</Nombre>
-            <FechaAlta>2003-06-20</FechaAlta>
             <Edad>45</Edad>
             <Sexo>HOMBRE</Sexo>
         </Senderista>
         <Senderista id="S-004">
             <Nombre>Cristina Rodríguez Menéndez</Nombre>
-            <FechaAlta>2020-07-10</FechaAlta>
             <Edad>30</Edad>
             <Sexo>MUJER</Sexo>
         </Senderista>
         <Senderista id="S-005">
             <Nombre>Alejandra Tomas Fernandez</Nombre>
-            <FechaAlta>2021-10-10</FechaAlta>
             <Edad>52</Edad>
             <Sexo>MUJER</Sexo>
         </Senderista>
         <Senderista id="S-023">
             <Nombre>Nuevo Socio Primero</Nombre>
-            <FechaAlta>2026-01-26</FechaAlta>
             <Edad>60</Edad>
             <Sexo>Hombre</Sexo>
+        </Senderista>
+        <Senderista>
+            <Edad>0</Edad>
         </Senderista>
     </ListadoSenderistas>
     <CatalogoRutas>
