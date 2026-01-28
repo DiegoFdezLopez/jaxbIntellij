@@ -5,14 +5,13 @@ import com.grupoMontana.xml.modelo.TipoRuta;
 import com.grupoMontana.xml.modelo.TipoSenderista;
 import com.grupoMontana.xml.logica.GrupoMontanaLibreria;
 
-import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Scanner;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws DatatypeConfigurationException {
+    public static void main(String[] args) {
         //Instanciamos la librería y cargamos los datos
         GrupoMontanaLibreria gestion = new GrupoMontanaLibreria();
         try {
@@ -23,18 +22,18 @@ public class Main {
             return; // Si falla la carga, cerramos el programa
         }
         Scanner sc = new Scanner(System.in);
-        int opcion = -1;
+        int opcion;
         // 2. Bucle del Menú
         do {
-            System.out.println("==========================================");
-            System.out.println("            /\\            /\\           \n" +
-                    "           /  \\          /  \\          \n" +
-                    "      /\\  /    \\    /\\  /    \\    /\\    \n" +
-                    "     /  \\/      \\  /  \\/      \\  /  \\   \n" +
-                    "    /              \\/              \\  \\  \n" +
-                    "   /   /\\     /\\           /\\       \\  \\ \n" +
-                    "  /   /  \\   /  \\   /\\    /  \\       \\  \\\n" +
-                    " /___/____\\_/____\\_/__\\__/____\\_______\\__\\");
+            System.out.println("===========================================");
+            String montanas =
+                            "          /\\           /\\            /\\          /\\\n" +
+                            "         /  \\         /  \\    /\\    /  \\        /  \\\n" +
+                            "    /\\  /    \\   /\\  /    \\  /  \\  /    \\  /\\  /    \\\n" +
+                            "   /  \\/      \\ /  \\/      \\/    \\/      \\/  \\/      \\\n" +
+                            "__/____________________________________________________\\\n";
+            System.out.print(montanas);
+            System.out.println("=============================================");
             System.out.println("1.Ver Edad Media de los Senderistas");
             System.out.println("2.Ver Actividad más Popular");
             System.out.println("3.Buscar Senderista por Nombre");
