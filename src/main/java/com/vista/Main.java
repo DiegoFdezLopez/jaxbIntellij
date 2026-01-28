@@ -39,7 +39,7 @@ public class Main {
             System.out.print("Elige una opción: ");
             opcion = sc.nextInt();
 
-            // 3. Procesamos la opción
+            // 3. Procesamos la opcion
             switch (opcion) {
                 case 1:
                     double media = gestion.edadMediaSenderistas();
