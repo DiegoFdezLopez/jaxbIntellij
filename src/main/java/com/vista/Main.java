@@ -1,6 +1,7 @@
 package com.vista;
 
 import com.grupoMontana.xml.modelo.TipoActividad;
+import com.grupoMontana.xml.modelo.TipoRuta;
 import com.grupoMontana.xml.modelo.TipoSenderista;
 import com.grupoMontana.xml.logica.GrupoMontanaLibreria;
 
@@ -26,6 +27,14 @@ public class Main {
         // 2. Bucle del Menú
         do {
             System.out.println("==========================================");
+            System.out.println("            /\\            /\\           \n" +
+                    "           /  \\          /  \\          \n" +
+                    "      /\\  /    \\    /\\  /    \\    /\\    \n" +
+                    "     /  \\/      \\  /  \\/      \\  /  \\   \n" +
+                    "    /              \\/              \\  \\  \n" +
+                    "   /   /\\     /\\           /\\       \\  \\ \n" +
+                    "  /   /  \\   /  \\   /\\    /  \\       \\  \\\n" +
+                    " /___/____\\_/____\\_/__\\__/____\\_______\\__\\");
             System.out.println("1.Ver Edad Media de los Senderistas");
             System.out.println("2.Ver Actividad más Popular");
             System.out.println("3.Buscar Senderista por Nombre");
@@ -34,6 +43,8 @@ public class Main {
             System.out.println("6.PRUEBA SACAR LISTA ACTIVIDADES");
             System.out.println("7.PRUEBA SACAR LISTA SENDERISTAS");
             System.out.println("8.BORRAR SENDERISTA POR ID");
+            System.out.println("9.AÑADIR O ELIMINAR PARTICIPANTES EN UNA ACTIVIDAD");
+            System.out.println("10.PRUEBA SACAR LISTA SENDERISTAS");
             System.out.println("0. Salir");
             System.out.println("==========================================");
             System.out.print("Elige una opción: ");
@@ -50,7 +61,8 @@ public class Main {
                     TipoActividad popular = gestion.actividadMasPopular();
                     if (popular != null) {
                         System.out.println(">> La actividad más popular es: " + popular.getComentarios());
-                        System.out.println(">> ID: " + popular.getId() + " | Valoracion: " + popular.getValoracion());
+                        System.out.println(">> ID: " + popular.getId() + " | Valoracion: " + popular.getValoracion() +
+                                " | Nombre: " + popular.getComentarios());
                     } else {
                         System.out.println(">> No hay actividades registradas.");
                     }
@@ -61,10 +73,7 @@ public class Main {
                     System.out.print("Introduce el nombre a buscar: ");
                     sc.nextLine();
                     String nombreBuscado = sc.nextLine();
-
-                    //LLAMADA AL METODO
                     TipoSenderista encontrado = gestion.buscarSenderistaPorNombre(nombreBuscado);
-
                     if (encontrado != null) {
                         System.out.println("¡ENCONTRADO!");
                         System.out.println("--------------------------------");
@@ -100,84 +109,80 @@ public class Main {
                     gestion.altaSenderista(nuevoSocio);
                     break;
 
-                case 5:
+                case 5: // O el número que corresponda
                     System.out.println("\n--- CREACION NUEVA ACTIVIDAD ---");
-                    TipoActividad nuevaActividad = new TipoActividad();
                     sc.nextLine(); // Limpieza buffer inicial
 
-                    //ID DE LA ACTIVIDAD
-                    System.out.print("Introduce el ID de la Actividad (ej: ACT-01): "); // NUEVO
-                    nuevaActividad.setId(sc.nextLine());
+                    System.out.print("Introduce el ID de la Actividad (ej: ACT-01): ");
+                    String idLeido = sc.nextLine();
 
-                    //ID DE LA RUTA
-                    System.out.println("Introduzca el id de ruta (ej: R-000)");
-                    String idRuta = sc.nextLine();
-                    nuevaActividad.setRutaId(idRuta); //
+                    if (gestion.buscarActividadPorId(idLeido) != null) {
 
-                    //FECHA
-                    System.out.println("Introduzca la fecha (ej: AAAA-MM-DD)");
-                    String fechaString = sc.next();
-                    try {
-                        XMLGregorianCalendar xcal = DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaString);
-                        nuevaActividad.setFecha(xcal);
-                    } catch (Exception e) {
-                        System.out.println("Formato de fecha incorrecto. Se dejará vacío.");
+                        System.out.println("ERROR: Ya existe una actividad con el ID '" + idLeido + "'.");
+                        System.out.println("No se puede crear. Volviendo al menú...");
                     }
+                    else {
+                        TipoActividad nuevaActividad = new TipoActividad();
+                        nuevaActividad.setId(idLeido); // Asignamos el ID que ya leímos y validamos
 
-                    //DURACION
-                    System.out.println("\n--- DATOS DE DURACION ---");
-                    System.out.print("Horas empleadas: ");
-                    int horas = sc.nextInt();
-                    System.out.print("Minutos (0-59): ");
-                    int minutos = sc.nextInt();
-                    TipoActividad.TiempoEmpleado tiempo = new TipoActividad.TiempoEmpleado();
-                    tiempo.setHoras(horas);
-                    tiempo.setMinutos(minutos);
-                    nuevaActividad.setTiempoEmpleado(tiempo);
+                        System.out.println("Introduzca el id de ruta (ej: R-000)");
+                        String idRuta = sc.nextLine();
+                        nuevaActividad.setRutaId(idRuta);
 
-                    //PARTICIPANTES
-                    System.out.println("\n--- AÑADIR PARTICIPANTES ---");
-                    TipoActividad.Participantes listaParticipantes = new TipoActividad.Participantes();
-
-                    while (true) {
-                        System.out.print("Introduce ID del Senderista (Ej- S-001 o 0 para terminar): ");
-                        String idLeido = sc.next();
-
-                        // SI ES CERO SALIMOS DEL BUCLE
-                        if (idLeido.equals("0")) {
-                            break;
+                        System.out.println("Introduzca la fecha (ej: AAAA-MM-DD)");
+                        String fechaString = sc.next();
+                        try {
+                            XMLGregorianCalendar xcal = DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaString);
+                            nuevaActividad.setFecha(xcal);
+                        } catch (Exception e) {
+                            System.out.println("⚠️ Formato de fecha incorrecto. Se dejará vacío.");
                         }
 
-                        //SI NO ES CERO BUSCAMOS EL SENDERISTA
-                        if(gestion.buscarSenderistaPorId(idLeido) != null){
-                            listaParticipantes.getIdSenderista().add(idLeido);
-                            System.out.println("Senderista " + idLeido + " añadido correctamente.");
-                        } else {
-                            System.out.println("Senderista no encontrado.");
+                        System.out.println("\n--- DATOS DE DURACION ---");
+                        System.out.print("Horas empleadas: ");
+                        int horas = sc.nextInt();
+                        System.out.print("Minutos (0-59): ");
+                        int minutos = sc.nextInt();
+
+                        TipoActividad.TiempoEmpleado tiempo = new TipoActividad.TiempoEmpleado();
+                        tiempo.setHoras(horas);
+                        tiempo.setMinutos(minutos);
+                        nuevaActividad.setTiempoEmpleado(tiempo);
+                        System.out.println("\n--- AÑADIR PARTICIPANTES ---");
+                        TipoActividad.Participantes listaParticipantes = new TipoActividad.Participantes();
+
+                        while (true) {
+                            System.out.print("Introduce ID del Senderista (Ej- S-001 o 0 para terminar): ");
+                            String idPart = sc.next();
+                            if (idPart.equals("0")) {
+                                break;
+                            }
+                            if (gestion.buscarSenderistaPorId(idPart) != null) {
+                                listaParticipantes.getIdSenderista().add(idPart);
+                                System.out.println("   ✅ Senderista " + idPart + " añadido correctamente.");
+                            } else {
+                                System.out.println("   ❌ Senderista no encontrado en la base de datos.");
+                            }
                         }
+                        nuevaActividad.setParticipantes(listaParticipantes);
+
+                        System.out.print("Valoración de la actividad (1-5): ");
+                        nuevaActividad.setValoracion(sc.nextInt());
+                        sc.nextLine();
+                        System.out.print("Comentarios: ");
+                        nuevaActividad.setComentarios(sc.nextLine());
+                        gestion.crearActividad(nuevaActividad);
                     }
-                    nuevaActividad.setParticipantes(listaParticipantes);
-
-                    //VALORACIÓN
-                    System.out.print("Valoración de la actividad (1-5): ");
-                    nuevaActividad.setValoracion(sc.nextInt());
-                    //LIMPIAR BUFFER
-                    sc.nextLine();
-                    //COMENTARIOS
-                    System.out.print("Comentarios: "); // NUEVO
-                    nuevaActividad.setComentarios(sc.nextLine()); // NUEVO
-                    // 7. GUARDAR FINAL (Faltaba llamar a la librería)
-                    gestion.crearActividad(nuevaActividad); // NUEVO
-
                     break;
+
                 case 6:
-                    System.out.println("\n--- 📋 LISTADO DE ACTIVIDADES ---");
+                    System.out.println("\n--- LISTADO DE ACTIVIDADES ---");
 
                     //COGER LISTA DE LIBRERIA
                     List<TipoActividad> misActividades = gestion.getListaActividades();
                     //EVITAR QUE ESTE VACIA
                     if (misActividades.isEmpty()) {
-                        System.out.println("⚠️ No hay actividades registradas todavía.");
+                        System.out.println("No hay actividades registradas todavía.");
                     } else {
                         //FOR PARA RECORRER LA LISTA
                         for (TipoActividad act : misActividades) {
@@ -211,7 +216,7 @@ public class Main {
                 case 7:
                     List<TipoSenderista> listaSenderistas = gestion.getListaSenderistas();
                     if (listaSenderistas.isEmpty()) {
-                        System.out.println("⚠️ No hay actividades registradas todavía.");
+                        System.out.println("No hay actividades registradas todavía.");
                     } else {
                         //FOR PARA RECORRER LA LISTA
                         for (TipoSenderista senderista : listaSenderistas) {
@@ -220,8 +225,8 @@ public class Main {
                             System.out.println("Nombre:        " + senderista.getNombre());
                             System.out.println("Sexo:          " + senderista.getSexo());
                             System.out.println("Edad:          " + senderista.getEdad());
-                            }
                         }
+                    }
                     break;
                 case 8:
                     System.out.println("\n--- BAJA DE SENDERISTA ---");
@@ -244,6 +249,65 @@ public class Main {
                         System.out.println("Operación cancelada.");
                     }
                     break;
+                case 9:
+                    System.out.println("\n--- GESTIONAR PARTICIPANTES ---");
+                    System.out.print("Introduce el ID de la Actividad (ej:ACT-00: ");
+                    String idAct = sc.next();
+
+                    // 1. Buscamos la actividad (Usamos tu método de la librería)
+                    TipoActividad actEdicion = gestion.buscarActividadPorId(idAct);
+
+                    if (actEdicion == null) {
+                        System.out.println("Error: Actividad no encontrada.");
+                        break;
+                    }
+
+                    boolean editando = true;
+                    while (editando) {
+                        System.out.println("\nActividad: " + actEdicion.getId());
+                        System.out.println("1. Añadir Participante | 2. Eliminar Participante | 0. Salir");
+                        int op = sc.nextInt();
+                        if (op == 0) break;
+                        System.out.print("Introduce ID Senderista (Ej:S-000: ");
+                        String idSend = sc.next();
+                        // COMPROBACIÓN: ¿Existe el socio? (Igual que hacíamos en el Case 6)
+                        if (gestion.buscarSenderistaPorId(idSend) == null) {
+                            System.out.println("Error: Ese senderista no existe en la base de datos.");
+                            continue;
+                        }
+
+                        if (op == 1) {
+                            if (gestion.agregarParticipante(actEdicion, idSend)) {
+                                System.out.println("enderista añadido correctamente.");
+                            } else {
+                                System.out.println("No se pudo añadir (probablemente ya estaba inscrito).");
+                            }
+                        } else if (op == 2) {
+                            // Llamamos al método booleano
+                            if (gestion.eliminarParticipante(actEdicion, idSend)) {
+                                System.out.println("Senderista eliminado de la actividad.");
+                            } else {
+                                System.out.println("No se pudo eliminar (no estaba en la lista).");
+                            }
+                        }
+                    }
+                    break;
+                case 10:
+                    List<TipoRuta> listaRutas = gestion.getListaRutas();
+                    if (listaRutas.isEmpty()) {
+                        System.out.println("No hay actividades registradas todavía.");
+                    } else {
+                        //FOR PARA RECORRER LA LISTA
+                        for (TipoRuta ruta : listaRutas) {
+                            System.out.println("------------------------------------------------");
+                            System.out.println("ID ruta:            " + ruta.getId());
+                            System.out.println("Nombre:             " + ruta.getNombre());
+                            System.out.println("Distancia:          " + ruta.getDistanciaKm());
+                            System.out.println("Desnivel positivo:  " + ruta.getDesnivelPositivo());
+                            System.out.println("Dificultar:         91" + ruta.getDificultad());
+                        }
+                    }
+                    break;
                 case 0:
                     System.out.println("Fin");
                     break;
@@ -253,7 +317,6 @@ public class Main {
         } while (opcion != 0);
         sc.close();
     }
-
 
 
 }

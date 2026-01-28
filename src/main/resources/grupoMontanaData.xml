@@ -269,5 +269,18 @@
             <Valoracion>4</Valoracion>
             <Comentarios>Ruta agregada para probar el metodo</Comentarios>
         </Actividad>
+        <Actividad id="ACT-10">
+            <RutaId>R-005</RutaId>
+            <Fecha>2025-10-01</Fecha>
+            <TiempoEmpleado>
+                <Horas>5</Horas>
+                <Minutos>50</Minutos>
+            </TiempoEmpleado>
+            <Participantes>
+                <IdSenderista>S-001</IdSenderista>
+            </Participantes>
+            <Valoracion>5</Valoracion>
+            <Comentarios>probar si comprobamos que no exista una actividad con el mismo id</Comentarios>
+        </Actividad>
     </RegistroActividades>
 </GrupoMontanaData>

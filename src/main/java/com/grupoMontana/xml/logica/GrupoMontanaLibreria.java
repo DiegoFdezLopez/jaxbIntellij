@@ -3,23 +3,29 @@ package com.grupoMontana.xml.logica;
 import java.io.File;
 import java.util.List;
 
-import jakarta.xml.bind.*; // JAXB
-import com.grupoMontana.xml.modelo.*; // CLASES CREADAS POR MAVEN.
+import jakarta.xml.bind.*;
+import com.grupoMontana.xml.modelo.*;
 
 public class GrupoMontanaLibreria {
-
-    /** Datos del grupo de montaña */
+    /**
+     * Datos del grupo de montaña
+     */
     private GrupoMontanaData datos;
-    /**Archivo para cargar y guardar los datos del grupo de montaña*/
+    /**
+     * Archivo para cargar y guardar los datos del grupo de montaña
+     */
     private File archivoXML = new File("src/main/resources/grupoMontanaData.xml");
 
-    /**Constructor sin parametros*/
+    /**
+     * Constructor sin parametros
+     */
     public GrupoMontanaLibreria() {
         super();
     }
 
     /**
      * Carga los datos del grupo desde el fichero XML asociado y los deja en memoria en el atributo datos}.
+     *
      * @throws JAXBException si el archivo no existe.
      */
     public void cargarDatos() throws JAXBException {
@@ -44,8 +50,8 @@ public class GrupoMontanaLibreria {
             JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
             //CREACION MARSHALLER
             Marshaller marshaller = contexto.createMarshaller();
-            //FORMATO PARA LEER EL XML MAS AGRADABLE
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8"); //buena practica
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); //pretty
             //ESCRIBIR "DATOS" EN EL ARCHIVOXML
             marshaller.marshal(datos, archivoXML);
             System.out.println("Cambios guardados en el fichero XML.");
@@ -55,6 +61,29 @@ public class GrupoMontanaLibreria {
     }
 
     //METODOS
+
+    /**
+     * Muestra un listado de todas las actividades.
+     *
+     * @return lista completa de todas las actividades
+     */
+    public List<TipoActividad> getListaActividades() {
+        return datos.getRegistroActividades().getActividad();
+    }
+
+    /**
+     * Muestra un listado de todos los senderistas.
+     *
+     * @return lista completa de todos los senderistas
+     */
+    public List<TipoSenderista> getListaSenderistas() {
+        return datos.getListadoSenderistas().getSenderista();
+    }
+
+    public List<TipoRuta> getListaRutas(){
+        return datos.getCatalogoRutas().getRuta();
+    }
+
     /**
      * Busca un senderista por su ID usando un bucle clásico.
      *
@@ -74,8 +103,53 @@ public class GrupoMontanaLibreria {
         return null;
     }
 
+    public TipoActividad buscarActividadPorId(String idBusqueda) {
+        List<TipoActividad> listaActividades = datos.getRegistroActividades().getActividad();
+        for (TipoActividad actividad : listaActividades) {
+            if (actividad.getId().equals(idBusqueda)) {
+                return actividad;
+            }
+        }
+        return null;
+    }
+
+//================================================================================================================================================================
+//================================================================================================================================================================
+// Método simple: intenta añadir y guarda.
+// Devuelve true si lo guardó, false si ya estaba o hubo error.
+
+    public boolean agregarParticipante(TipoActividad actividad, String idSenderista) {
+        if (actividad == null) return false;
+        // Inicializamos la lista si no existe
+        if (actividad.getParticipantes() == null) {
+            actividad.setParticipantes(new TipoActividad.Participantes());
+        }
+        List<String> lista = actividad.getParticipantes().getIdSenderista();
+        // Si ya está, devolvemos false (no hacemos nada)
+        if (lista.contains(idSenderista)) {
+            return false;
+        }
+        // Si no estaba, lo añadimos y guardamos
+        lista.add(idSenderista);
+        this.guardarDatos();
+        return true;
+    }
+
+    // Método simple para eliminar
+    public boolean eliminarParticipante(TipoActividad actividad, String idSenderista) {
+        if (actividad == null || actividad.getParticipantes() == null) return false;
+        List<String> lista = actividad.getParticipantes().getIdSenderista();
+        // remove devuelve true si lo borró, false si no estaba
+        boolean borrado = lista.remove(idSenderista);
+        if (borrado) {
+            this.guardarDatos(); // Solo guardamos si hubo cambios
+        }
+        return borrado;
+    }
+//================================================================================================================================================================
+//================================================================================================================================
+
     /**
-     *
      * @param nombreBusqueda
      * @return
      */
@@ -91,7 +165,6 @@ public class GrupoMontanaLibreria {
     }
 
     /**
-     *
      * @return
      */
     // MEDIA EDAD GRUPO MONTAÑA
@@ -105,7 +178,6 @@ public class GrupoMontanaLibreria {
     }
 
     /**
-     *
      * @return
      */
     public TipoActividad actividadMasPopular() {
@@ -126,7 +198,6 @@ public class GrupoMontanaLibreria {
     }
 
     /**
-     *
      * @param nuevoSenderista
      */
     //ALTA SENDERISTA
@@ -144,6 +215,7 @@ public class GrupoMontanaLibreria {
 
     /**
      * Crea de una nueva actividad con datos aportados por el usuario
+     *
      * @param nuevaActividad actividad a añadir.
      */
     public void crearActividad(TipoActividad nuevaActividad) {
@@ -160,6 +232,7 @@ public class GrupoMontanaLibreria {
 
     /**
      * Recibe un id y borra el senderista asociado a ese id.
+     *
      * @param idParaBorrar
      * @return true si puede borrar, false si no se hace ningun borrado.
      */
@@ -187,18 +260,10 @@ public class GrupoMontanaLibreria {
     }
 
     /**
-     * Muestra un listado de todas las actividades.
-     * @return lista completa de todas las actividades
+     * actualizar participantes de una actividad.
+     * @Param id_actividad la actividad que vamos a modificar
+     * @Param id_senderista el senderista que vamos a añadir o borrar de la actividad.
      */
-    public List<TipoActividad> getListaActividades() {
-        return datos.getRegistroActividades().getActividad();
-    }
 
-    /**
-     * Muestra un listado de todos los senderistas.
-     * @return lista completa de todos los senderistas
-     */
-    public List<TipoSenderista> getListaSenderistas() {
-        return datos.getListadoSenderistas().getSenderista();
-    }
+
 }
