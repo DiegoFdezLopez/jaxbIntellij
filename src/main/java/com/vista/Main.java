@@ -1,22 +1,18 @@
 package com.vista;
 
-import com.grupoMontana.xml.modelo.GrupoMontanaData;
 import com.grupoMontana.xml.modelo.TipoActividad;
 import com.grupoMontana.xml.modelo.TipoSenderista;
 import com.grupoMontana.xml.logica.GrupoMontanaLibreria;
 
-// 3. IMPORTS DE JAVA (Estándar)
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws DatatypeConfigurationException {
-
-        // 1. Instanciamos la librería y cargamos los datos
+        //Instanciamos la librería y cargamos los datos
         GrupoMontanaLibreria gestion = new GrupoMontanaLibreria();
         try {
             gestion.cargarDatos();
@@ -27,25 +23,21 @@ public class Main {
         }
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
-
         // 2. Bucle del Menú
         do {
             System.out.println("==========================================");
             System.out.println("1.Ver Edad Media de los Senderistas");
             System.out.println("2.Ver Actividad más Popular");
-            System.out.println("3.Ver Senderista más Activo (Opcional)");
-            System.out.println("4.Buscar Senderista por Nombre");
-            System.out.println("5.Dar de alta nuevo Socio");
-            System.out.println("6.Crear nueva actividad");
-            System.out.println("7.PRUEBA SACAR LISTA ACTIVIDADES");
-            System.out.println("8.PRUEBA SACAR LISTA SENDERISTAS");
-            System.out.println("9.BORRAR SENDERISTA POR ID");
+            System.out.println("3.Buscar Senderista por Nombre");
+            System.out.println("4.Dar de alta nuevo Socio");
+            System.out.println("5.Crear nueva actividad");
+            System.out.println("6.PRUEBA SACAR LISTA ACTIVIDADES");
+            System.out.println("7.PRUEBA SACAR LISTA SENDERISTAS");
+            System.out.println("8.BORRAR SENDERISTA POR ID");
             System.out.println("0. Salir");
             System.out.println("==========================================");
             System.out.print("Elige una opción: ");
-
             opcion = sc.nextInt();
-
 
             // 3. Procesamos la opción
             switch (opcion) {
@@ -65,23 +57,12 @@ public class Main {
                     break;
 
                 case 3:
-                    // Si implementaste el DTO del senderista más activo, descomenta esto:
-                    /*
-                    GrupoMontanaLibreria.ResultadoEstadistica resultado = gestion.obtenerSenderistaMasActivo();
-                    if (resultado != null) {
-                        System.out.println(">> Senderista Top: " + resultado.senderista.getNombre());
-                        System.out.println(">> Total excursiones: " + resultado.numeroExcursiones);
-                    }
-                    */
-                    System.out.println(">> (Descomenta el código si tienes este método listo)");
-                    break;
-                case 4:
-                    System.out.println("\nBUSCAR SENDERISTA POR NOMBRE ---");
+                    System.out.println("\n BUSCAR SENDERISTA POR NOMBRE ---");
                     System.out.print("Introduce el nombre a buscar: ");
                     sc.nextLine();
                     String nombreBuscado = sc.nextLine();
 
-                    // Llamamos a tu método (asegúrate de haberlo creado en la librería)
+                    //LLAMADA AL METODO
                     TipoSenderista encontrado = gestion.buscarSenderistaPorNombre(nombreBuscado);
 
                     if (encontrado != null) {
@@ -97,7 +78,7 @@ public class Main {
                     }
                     break;
 
-                case 5:
+                case 4:
                     System.out.println("\n--- ALTA DE NUEVO SOCIO ---");
                     TipoSenderista nuevoSocio = new TipoSenderista();
                     //LIMPIEZA BUFFER
@@ -119,7 +100,7 @@ public class Main {
                     gestion.altaSenderista(nuevoSocio);
                     break;
 
-                case 6:
+                case 5:
                     System.out.println("\n--- CREACION NUEVA ACTIVIDAD ---");
                     TipoActividad nuevaActividad = new TipoActividad();
                     sc.nextLine(); // Limpieza buffer inicial
@@ -189,7 +170,7 @@ public class Main {
                     gestion.crearActividad(nuevaActividad); // NUEVO
 
                     break;
-                case 7:
+                case 6:
                     System.out.println("\n--- 📋 LISTADO DE ACTIVIDADES ---");
 
                     //COGER LISTA DE LIBRERIA
@@ -227,7 +208,7 @@ public class Main {
                         }
                     }
                     break;
-                case 8:
+                case 7:
                     List<TipoSenderista> listaSenderistas = gestion.getListaSenderistas();
                     if (listaSenderistas.isEmpty()) {
                         System.out.println("⚠️ No hay actividades registradas todavía.");
@@ -242,7 +223,7 @@ public class Main {
                             }
                         }
                     break;
-                case 9:
+                case 8:
                     System.out.println("\n--- BAJA DE SENDERISTA ---");
                     // PEDIMOS ID QUE VAMOS A BUSCAR Y BORRAR
                     System.out.print("Introduce el ID del senderista a eliminar: (Ej: S-000)");
