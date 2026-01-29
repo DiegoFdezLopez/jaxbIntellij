@@ -142,14 +142,12 @@ public class Main {
                     while (true) {
                         System.out.print("Introduce ID del Senderista (Ej- S-001 o 0 para terminar): ");
                         String idLeido = sc.next();
-
                         // SI ES CERO SALIMOS DEL BUCLE
                         if (idLeido.equals("0")) {
                             break;
                         }
-
                         //SI NO ES CERO BUSCAMOS EL SENDERISTA
-                        if(gestion.buscarSenderistaPorId(idLeido) != null){
+                        if (gestion.buscarSenderistaPorId(idLeido) != null) {
                             listaParticipantes.getIdSenderista().add(idLeido);
                             System.out.println("Senderista " + idLeido + " añadido correctamente.");
                         } else {
@@ -157,7 +155,6 @@ public class Main {
                         }
                     }
                     nuevaActividad.setParticipantes(listaParticipantes);
-
                     //VALORACIÓN
                     System.out.print("Valoración de la actividad (1-5): ");
                     nuevaActividad.setValoracion(sc.nextInt());
@@ -220,8 +217,8 @@ public class Main {
                             System.out.println("Nombre:        " + senderista.getNombre());
                             System.out.println("Sexo:          " + senderista.getSexo());
                             System.out.println("Edad:          " + senderista.getEdad());
-                            }
                         }
+                    }
                     break;
                 case 8:
                     System.out.println("\n--- BAJA DE SENDERISTA ---");
@@ -253,7 +250,6 @@ public class Main {
         } while (opcion != 0);
         sc.close();
     }
-
 
 
 }
