@@ -8,7 +8,7 @@ import com.grupoMontana.xml.modelo.*;
 
 /**
  * Clase encargada de la lógica de negocio y gestión de datos del Grupo de Montaña.
- * Actúa como intermediario entre la interfaz (Vista) y los datos XML (Modelo).
+ * Actúa como intermediario entre la interfaz (Vista) y los datos XML.
  */
 public class GrupoMontanaLibreria {
 
@@ -69,16 +69,13 @@ public class GrupoMontanaLibreria {
         }
     }
 
-    // ==========================================
-    // GETTERS SIMPLES (Listados)
-    // ==========================================
-
     /**
      * Obtiene la lista completa de actividades registradas.
      *
      * @return Lista de objetos TipoActividad.
      */
     public List<TipoActividad> getListaActividades() {
+
         return datos.getRegistroActividades().getActividad();
     }
 
@@ -88,6 +85,7 @@ public class GrupoMontanaLibreria {
      * @return Lista de objetos TipoSenderista.
      */
     public List<TipoSenderista> getListaSenderistas() {
+
         return datos.getListadoSenderistas().getSenderista();
     }
 
@@ -96,10 +94,9 @@ public class GrupoMontanaLibreria {
      *
      * @return Lista de objetos TipoRuta.
      */
-    public List<TipoRuta> getListaRutas(){
+    public List<TipoRuta> getListaRutas() {
         return datos.getCatalogoRutas().getRuta();
     }
-
 
     /**
      * Busca un senderista utilizando su Email como identificador único.
@@ -136,18 +133,13 @@ public class GrupoMontanaLibreria {
         return null;
     }
 
-
-    // ==========================================
-    // GESTIÓN DE PARTICIPANTES (Usando Email)
-    // ==========================================
-
     /**
      * Añade un participante a una actividad específica.
-     * Verifica que el participante no esté ya inscrito (por email).
+     * Verifica que el participante no esté ya inscrito.
      * Si se añade con éxito, guarda los cambios en el XML.
      *
-     * @param actividad La actividad donde se quiere inscribir.
-     * @param emailSenderista El email del senderista a inscribir.
+     * @param actividad         La actividad donde se quiere inscribir.
+     * @param emailSenderista   El email del senderista a inscribir.
      * @return true si se añadió correctamente, false si ya estaba inscrito o datos nulos.
      */
     public boolean agregarParticipante(TipoActividad actividad, String emailSenderista) {
@@ -166,7 +158,6 @@ public class GrupoMontanaLibreria {
                 return false; // Ya existe
             }
         }
-
         // Si no estaba, lo añadimos y guardamos
         listaEmails.add(emailSenderista);
         this.guardarDatos();
@@ -178,8 +169,8 @@ public class GrupoMontanaLibreria {
      * Busca el email en la lista de participantes ignorando mayúsculas/minúsculas.
      * Si se elimina con éxito, guarda los cambios en el XML.
      *
-     * @param actividad La actividad de la que se quiere borrar.
-     * @param emailSenderista El email del senderista a eliminar.
+     * @param actividad         La actividad de la que se quiere borrar.
+     * @param emailSenderista   El email del senderista a eliminar.
      * @return true si se eliminó, false si no se encontró en la lista.
      */
     public boolean eliminarParticipante(TipoActividad actividad, String emailSenderista) {
@@ -203,8 +194,7 @@ public class GrupoMontanaLibreria {
     }
 
     /**
-     * Busca un senderista por su nombre real (o parte del nombre).
-     * Útil cuando no se conoce el email exacto.
+     * Busca un senderista por su nombre.
      *
      * @param nombreBusqueda El nombre completo o parcial a buscar.
      * @return El objeto senderista encontrado o null si no existe coincidencia.
@@ -221,10 +211,6 @@ public class GrupoMontanaLibreria {
         }
         return null;
     }
-
-    // ==========================================
-    // ESTADÍSTICAS Y GESTIÓN
-    // ==========================================
 
     /**
      * Calcula la edad media de todos los senderistas registrados.
@@ -244,7 +230,6 @@ public class GrupoMontanaLibreria {
 
     /**
      * Determina cuál es la actividad con mayor número de participantes registrados.
-     * Protegido contra listas de participantes nulas.
      *
      * @return El objeto TipoActividad más popular, o null si no hay actividades.
      */
@@ -257,7 +242,6 @@ public class GrupoMontanaLibreria {
             int participantesActuales = 0;
             // PROTECCIÓN: Solo contamos si la lista de participantes EXISTE
             if (actividad.getParticipantes() != null) {
-                // CAMBIO AQUÍ: Ya no es getIdSenderista(), ahora es getEmailParticipante()
                 participantesActuales = actividad.getParticipantes().getEmailParticipante().size();
             }
             // IR GUARDANDO LA ACTIVIDAD CON MAS PARTICIPANTES
@@ -269,10 +253,6 @@ public class GrupoMontanaLibreria {
         }
         return actividadPopular; // DEVOLVER ACTIVIDAD CON MAS PARTICIPANTES
     }
-
-    // ==========================================
-    // ALTAS Y BAJAS (Sin IDs)
-    // ==========================================
 
     /**
      * Registra un nuevo senderista en el sistema.
@@ -289,7 +269,6 @@ public class GrupoMontanaLibreria {
             System.out.println("Error: Ya existe un senderista con ese email.");
             return;
         }
-
         getListaSenderistas().add(nuevo);
         this.guardarDatos();
         System.out.println("Senderista añadido: " + nuevo.getNombre());

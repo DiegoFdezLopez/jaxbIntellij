@@ -3,7 +3,7 @@ package com.vista;
 import com.grupoMontana.xml.modelo.TipoActividad;
 import com.grupoMontana.xml.modelo.TipoRuta;
 import com.grupoMontana.xml.modelo.TipoSenderista;
-import logica.GrupoMontanaLibreria; // Asegurate que este import coincide con tu paquete
+import logica.GrupoMontanaLibreria;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
