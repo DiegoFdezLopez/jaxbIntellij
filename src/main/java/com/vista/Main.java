@@ -13,22 +13,22 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        // Instanciamos la libreria
+        //Creacion obj libreria
         GrupoMontanaLibreria gestion = new GrupoMontanaLibreria();
 
-        // 1. CARGA DE DATOS
+        //CARGA DE DATOS
         try {
             gestion.cargarDatos();
-            System.out.println("Datos cargados correctamente del XML.");
+            System.err.println("Datos cargados correctamente del XML.");
         } catch (Exception e) {
             System.out.println("Error critico cargando datos: " + e.getMessage());
-            return; // Si falla la carga, cerramos el programa
+            return; // Si falla la carga se cierra el programa
         }
 
         Scanner sc = new Scanner(System.in);
         int opcion = -1;
 
-        // 2. BUCLE DEL MENU
+        //MENU
         do {
             System.out.println("\n=============================================");
             System.out.println("      GESTION CLUB DE MONTANA      ");
@@ -36,16 +36,16 @@ public class Main {
             System.out.println("1. Ver Edad Media de los Senderistas");
             System.out.println("2. Ver Actividad mas Popular");
             System.out.println("3. Buscar Senderista por Nombre");
-            System.out.println("4. ALTA de Nuevo Socio (Email)");
+            System.out.println("4. Alta de Nuevo Socio");
             System.out.println("5. Crear Nueva Actividad");
             System.out.println("6. Listar Todas las Actividades");
             System.out.println("7. Listar Senderistas");
-            System.out.println("8. BAJA de Senderista (por Email)");
+            System.out.println("8. Baja de Senderista");
             System.out.println("9. Gestionar Participantes en Actividad");
             System.out.println("10.Listar Catalogo de Rutas");
             System.out.println("0. Salir");
             System.out.println("===============================================");
-            System.out.print("Elige una opcion: ");
+            System.out.println("Elige una opcion: ");
 
             // Control de errores al leer entero
             try {
@@ -54,27 +54,29 @@ public class Main {
                 opcion = -1;
             }
 
-            // 3. PROCESAMOS LA OPCION
             switch (opcion) {
                 case 1:
+                    System.out.println("\n --- LA EDAD MEDIA DE LOS SENDERISTAS ---");
                     double media = gestion.edadMediaSenderistas();
-                    System.out.printf(">> La edad media del club es: %.2f anios.\n", media);
+                    //AYUDA DE IA PARA EL FORMATO DE LA MEDIA Y LOS DECIMALES
+                    System.out.printf("La edad media del club es: %.2f años.", media);
                     break;
 
                 case 2:
+                    System.out.println("\n--- ACTIVIDAD MAS POPULAR ---");
                     TipoActividad popular = gestion.actividadMasPopular();
                     if (popular != null) {
-                        System.out.println(">> La actividad mas popular fue la ruta a: " + popular.getNombreRuta());
-                        System.out.println("   Fecha: " + popular.getFecha());
-                        System.out.println("   Comentario: " + popular.getComentarios());
+                        System.out.println("La actividad mas popular fue la ruta a: " + popular.getNombreRuta());
+                        System.out.println("Fecha: " + popular.getFecha());
+                        System.out.println("Comentario: " + popular.getComentarios());
                     } else {
-                        System.out.println(">> No hay actividades con participantes.");
+                        System.out.println("No hay actividades con participantes.");
                     }
                     break;
 
                 case 3:
                     System.out.println("\n--- BUSCAR SENDERISTA POR NOMBRE ---");
-                    System.out.print("Introduce el nombre (o parte): ");
+                    System.out.print("Introduce el nombre: ");
                     String nombreBuscado = sc.nextLine();
 
                     TipoSenderista encontrado = gestion.buscarSenderistaPorNombre(nombreBuscado);
@@ -83,7 +85,7 @@ public class Main {
                         System.out.println("ENCONTRADO:");
                         System.out.println("Nombre: " + encontrado.getNombre());
                         System.out.println("Email:  " + encontrado.getEmail());
-                        System.out.println("Edad:   " + encontrado.getEdad() + " anios");
+                        System.out.println("Edad:   " + encontrado.getEdad() + " años");
                     } else {
                         System.out.println("No se ha encontrado a nadie llamado '" + nombreBuscado + "'.");
                     }
@@ -93,7 +95,7 @@ public class Main {
                     System.out.println("\n--- ALTA DE NUEVO SOCIO ---");
                     TipoSenderista nuevoSocio = new TipoSenderista();
 
-                    System.out.print("Introduce el Email (sera su identificador): ");
+                    System.out.print("Introduce el Email: ");
                     String email = sc.nextLine();
 
                     // Comprobamos si ya existe antes de seguir
@@ -120,22 +122,22 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("\n--- CREAR NUEVA ACTIVIDAD ---");
+                    System.out.println("\\n--- CREAR NUEVA ACTIVIDAD ---");
 
                     TipoActividad nuevaActividad = new TipoActividad();
 
-                    // 1. ELEGIR RUTA POR NOMBRE
+                    //ELEGIR RUTA POR NOMBRE
                     System.out.print("Nombre de la Ruta realizada: ");
                     String nombreRuta = sc.nextLine();
 
-                    // Validamos que la ruta exista en el catalogo
+                    //VALIDAR QUE LA RUTA EXISTE
                     if (gestion.buscarRutaPorNombre(nombreRuta) == null) {
                         System.out.println("Esa ruta no existe en el catalogo. Creala antes o revisa el nombre.");
                         break;
                     }
                     nuevaActividad.setNombreRuta(nombreRuta);
 
-                    // 2. FECHA
+                    //FECHA AYUDA DE LA IA PARA EL TEMA DE GREGORIANCALENDAR
                     System.out.print("Fecha (AAAA-MM-DD): ");
                     String fechaString = sc.nextLine();
                     try {
@@ -145,7 +147,7 @@ public class Main {
                         System.out.println("Formato fecha incorrecto. Se dejara vacia.");
                     }
 
-                    // 3. TIEMPO
+                    //TIEMPO
                     System.out.print("Horas empleadas: ");
                     int horas = Integer.parseInt(sc.nextLine());
                     System.out.print("Minutos: ");
@@ -156,8 +158,8 @@ public class Main {
                     tiempo.setMinutos(minutos);
                     nuevaActividad.setTiempoEmpleado(tiempo);
 
-                    // 4. PARTICIPANTES (Por Email)
-                    System.out.println("\n--- ANADIR PARTICIPANTES ---");
+                    //PARTICIPANTES
+                    System.out.println("\n--- AÑADIR PARTICIPANTES ---");
                     TipoActividad.Participantes listaPart = new TipoActividad.Participantes();
 
                     while (true) {
@@ -167,9 +169,9 @@ public class Main {
 
                         if (gestion.buscarSenderistaPorEmail(emailPart) != null) {
                             listaPart.getEmailParticipante().add(emailPart);
-                            System.out.println("   Anadido.");
+                            System.out.println("Añadido.");
                         } else {
-                            System.out.println("   Ese email no esta registrado como socio.");
+                            System.out.println("Ese email no esta registrado como socio.");
                         }
                     }
                     nuevaActividad.setParticipantes(listaPart);
@@ -199,8 +201,13 @@ public class Main {
 
                             System.out.print("Participantes: ");
                             if (act.getParticipantes() != null) {
-                                for (String emailP : act.getParticipantes().getEmailParticipante()) {
-                                    System.out.print("[" + emailP + "] ");
+                                for (String emailParticipante : act.getParticipantes().getEmailParticipante()) {
+                                    TipoSenderista senderista = gestion.buscarSenderistaPorEmail(emailParticipante);
+                                    if (senderista != null) {
+                                        System.out.print("[" + senderista.getNombre() + "] ");
+                                    } else {
+                                        System.out.print("[" + emailParticipante + "] ");
+                                    }
                                 }
                             }
                             System.out.println();
@@ -236,17 +243,15 @@ public class Main {
                     }
                     break;
 
+
+                // PROPUEST IA PARA LISTAR LAS ACTIVIDADES CON UN NUMERO PARA ELEGIR.
                 case 9:
                     System.out.println("\n--- GESTIONAR PARTICIPANTES ---");
-                    // COMO NO HAY IDs DE ACTIVIDAD, LAS LISTAMOS CON UN NUMERO
                     List<TipoActividad> todas = gestion.getListaActividades();
-
                     if(todas.isEmpty()) {
                         System.out.println("No hay actividades para editar.");
                         break;
                     }
-
-                    // Listamos numeradas
                     System.out.println("Selecciona que actividad quieres editar:");
                     for (int i = 0; i < todas.size(); i++) {
                         System.out.println("[" + i + "] " + todas.get(i).getNombreRuta() + " (" + todas.get(i).getFecha() + ")");

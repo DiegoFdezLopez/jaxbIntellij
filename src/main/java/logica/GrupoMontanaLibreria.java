@@ -244,6 +244,7 @@ public class GrupoMontanaLibreria {
             if (actividad.getParticipantes() != null) {
                 participantesActuales = actividad.getParticipantes().getEmailParticipante().size();
             }
+            //AYUDA IA PARA RESOLVER UN EMPATE
             // IR GUARDANDO LA ACTIVIDAD CON MAS PARTICIPANTES
             // Usamos > para quedarnos con la primera que encontremos en caso de empate
             if (participantesActuales > recordParticipantes) {
