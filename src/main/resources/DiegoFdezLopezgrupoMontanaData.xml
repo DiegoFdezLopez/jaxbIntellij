@@ -32,7 +32,6 @@
             <Sexo>MUJER</Sexo>
         </Senderista>
     </ListadoSenderistas>
-
     <CatalogoRutas>
         <Ruta>
             <Nombre>Torrecerredo</Nombre>
@@ -77,7 +76,6 @@
             <Dificultad>BAJA</Dificultad>
         </Ruta>
     </CatalogoRutas>
-
     <RegistroActividades>
         <Actividad>
             <NombreRuta>Torrecerredo</NombreRuta>
@@ -94,7 +92,6 @@
             <Valoracion>3</Valoracion>
             <Comentarios>Salida oficial de Enero</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Circular Tiatordos</NombreRuta>
             <Fecha>2025-02-14</Fecha>
@@ -111,7 +108,6 @@
             <Valoracion>5</Valoracion>
             <Comentarios>Salida de Febrero</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Peña Ubiña</NombreRuta>
             <Fecha>2025-03-21</Fecha>
@@ -129,7 +125,6 @@
             <Valoracion>2</Valoracion>
             <Comentarios>Salida de Marzo</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Jultayu</NombreRuta>
             <Fecha>2025-04-30</Fecha>
@@ -145,7 +140,6 @@
             <Valoracion>3</Valoracion>
             <Comentarios>Salida de Abril</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Torrecerredo</NombreRuta>
             <Fecha>2025-05-14</Fecha>
@@ -160,7 +154,6 @@
             <Valoracion>5</Valoracion>
             <Comentarios>Salida de Mayo</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Circular Tiatordos</NombreRuta>
             <Fecha>2025-06-03</Fecha>
@@ -176,7 +169,6 @@
             <Valoracion>4</Valoracion>
             <Comentarios>Salida de Junio</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Jultayu</NombreRuta>
             <Fecha>2025-07-30</Fecha>
@@ -190,7 +182,6 @@
             <Valoracion>4</Valoracion>
             <Comentarios>Salida de Julio</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Pico Pienzu</NombreRuta>
             <Fecha>2025-08-24</Fecha>
@@ -206,7 +197,6 @@
             <Valoracion>3</Valoracion>
             <Comentarios>Salida de Agosto</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Circular Tiatordos</NombreRuta>
             <Fecha>2025-09-03</Fecha>
@@ -221,7 +211,6 @@
             <Valoracion>5</Valoracion>
             <Comentarios>Salida de Septiembre</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Peña Ubiña</NombreRuta>
             <Fecha>2025-10-01</Fecha>
@@ -238,7 +227,6 @@
             <Valoracion>2</Valoracion>
             <Comentarios>Salida de Octubre</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Pico Torres</NombreRuta>
             <Fecha>2025-11-11</Fecha>
@@ -254,7 +242,6 @@
             <Valoracion>2</Valoracion>
             <Comentarios>Salida de Noviembre</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Pico Monfrechu</NombreRuta>
             <Fecha>2025-12-24</Fecha>
@@ -272,7 +259,6 @@
             <Valoracion>1</Valoracion>
             <Comentarios>Salida de Navidad al Monfrechu</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Ruta de Prueba</NombreRuta>
             <Fecha>2026-01-25</Fecha>
@@ -288,7 +274,6 @@
             <Valoracion>4</Valoracion>
             <Comentarios>Ruta agregada para probar el metodo</Comentarios>
         </Actividad>
-
         <Actividad>
             <NombreRuta>Ruta de Prueba</NombreRuta>
             <Fecha>2025-10-01</Fecha>

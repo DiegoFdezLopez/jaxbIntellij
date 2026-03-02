@@ -1,10 +1,11 @@
-package logica;
+package com.logica;
 
 import java.io.File;
 import java.util.List;
 
-import jakarta.xml.bind.*;
+import com.dao.GrupoMontanaDAO;
 import com.grupoMontana.xml.modelo.*;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Clase encargada de la lógica de negocio y gestión de datos del Grupo de Montaña.
@@ -12,62 +13,63 @@ import com.grupoMontana.xml.modelo.*;
  */
 public class GrupoMontanaLibreria {
 
-    /**
-     * Objeto raíz que contiene todos los datos del XML en memoria.
-     */
-    private GrupoMontanaData datos;
+    private GrupoMontanaDAO dao;
 
     /**
-     * Archivo físico donde se leen y guardan los datos.
+     * Archivo para cargar y guardar los datos del grupo de montaña
      */
-    private File archivoXML = new File("src/main/resources/grupoMontanaData.xml");
+    private File archivoXML;
 
     /**
-     * Constructor por defecto.
-     */
-    public GrupoMontanaLibreria() {
-        super();
-    }
-
-    /**
-     * Carga los datos del grupo desde el fichero XML asociado y los vuelca en memoria.
-     * Utiliza JAXB para el unmarshalling.
+     * Constructor que recibe la ruta del archivo XML.
      *
-     * @throws JAXBException si el archivo no existe o el formato es incorrecto.
+     * @param dao Ruta física donde se encuentra el XML.
      */
-    public void cargarDatos() throws JAXBException {
-        if (!this.archivoXML.exists()) {
-            throw new JAXBException("No se encuentra el fichero XML");
-        }
-        // CONTEXTO
-        JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
-        // UNMARSHALLER
-        Unmarshaller lector = contexto.createUnmarshaller();
-        // LEER Y GUARDAR
-        this.datos = (GrupoMontanaData) lector.unmarshal(this.archivoXML);
-        System.out.println("Datos cargados correctamente.");
+    public GrupoMontanaLibreria(GrupoMontanaDAO dao) {
+        this.dao = dao;
     }
+// ///////////////////////////////////////////////////////////////////////////////////////////
+//    /**
+//     * Carga los datos del grupo desde el fichero XML asociado y los vuelca en memoria.
+//     * Utiliza JAXB para el unmarshalling.
+//     *
+//     * @throws JAXBException si el archivo no existe o el formato es incorrecto.
+//     */
+//    public void cargarDatos() throws JAXBException {
+//        if (!this.archivoXML.exists()) {
+//            throw new JAXBException("No se encuentra el fichero XML");
+//        }
+//        // CONTEXTO
+//        JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
+//        // UNMARSHALLER
+//        Unmarshaller lector = contexto.createUnmarshaller();
+//        // LEER Y GUARDAR
+//        this.datos = (GrupoMontanaData) lector.unmarshal(this.archivoXML);
+//        System.out.println("Datos cargados correctamente.");
+//    }
 
-    /**
-     * Guarda el estado actual de los datos en memoria en el fichero XML físico.
-     * Utiliza JAXB para el marshalling con formato legible (pretty print).
-     * Captura las excepciones internamente y muestra error por consola si falla.
-     */
-    public void guardarDatos() {
-        try {
-            // CONTEXTO
-            JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
-            // CREACION MARSHALLER
-            Marshaller marshaller = contexto.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");      // buena practica
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // pretty para el estilo
-            // ESCRIBIR "DATOS" EN EL ARCHIVOXML
-            marshaller.marshal(datos, archivoXML);
-            System.out.println("Cambios guardados en XML.");
-        } catch (JAXBException e) {
-            System.out.println("Error crítico guardando datos: " + e.getMessage());
-        }
-    }
+//    /**
+//     * Guarda el estado actual de los datos en memoria en el fichero XML físico.
+//     * Utiliza JAXB para el marshalling con formato legible (pretty print).
+//     * Captura las excepciones internamente y muestra error por consola si falla.
+//     */
+//    public void guardarDatos() {
+//        try {
+//            // CONTEXTO
+//            JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
+//            // CREACION MARSHALLER
+//            Marshaller marshaller = contexto.createMarshaller();
+//            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");      // buena practica
+//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // pretty para el estilo
+//            // ESCRIBIR "DATOS" EN EL ARCHIVOXML
+//            marshaller.marshal(datos, archivoXML);
+//            System.out.println("Cambios guardados en XML.");
+//        } catch (JAXBException e) {
+//            System.out.println("Error crítico guardando datos: " + e.getMessage());
+//        }
+//    }
+//  ///////////////////////////////////////////////////////////////////////////////////////////
+
 
     /**
      * Obtiene la lista completa de actividades registradas.
@@ -76,7 +78,7 @@ public class GrupoMontanaLibreria {
      */
     public List<TipoActividad> getListaActividades() {
 
-        return datos.getRegistroActividades().getActividad();
+        return dao.getDatos().getRegistroActividades().getActividad();
     }
 
     /**
@@ -86,7 +88,7 @@ public class GrupoMontanaLibreria {
      */
     public List<TipoSenderista> getListaSenderistas() {
 
-        return datos.getListadoSenderistas().getSenderista();
+        return dao.getDatos().getListadoSenderistas().getSenderista();
     }
 
     /**
@@ -95,7 +97,7 @@ public class GrupoMontanaLibreria {
      * @return Lista de objetos TipoRuta.
      */
     public List<TipoRuta> getListaRutas() {
-        return datos.getCatalogoRutas().getRuta();
+        return dao.getDatos().getCatalogoRutas().getRuta();
     }
 
     /**
@@ -138,11 +140,11 @@ public class GrupoMontanaLibreria {
      * Verifica que el participante no esté ya inscrito.
      * Si se añade con éxito, guarda los cambios en el XML.
      *
-     * @param actividad         La actividad donde se quiere inscribir.
-     * @param emailSenderista   El email del senderista a inscribir.
+     * @param actividad       La actividad donde se quiere inscribir.
+     * @param emailSenderista El email del senderista a inscribir.
      * @return true si se añadió correctamente, false si ya estaba inscrito o datos nulos.
      */
-    public boolean agregarParticipante(TipoActividad actividad, String emailSenderista) {
+    public boolean agregarParticipante(TipoActividad actividad, String emailSenderista) throws JAXBException {
         if (actividad == null || emailSenderista == null) return false;
         // Iniciar la lista de participantes si está vacía (null safety)
         if (actividad.getParticipantes() == null) {
@@ -160,7 +162,7 @@ public class GrupoMontanaLibreria {
         }
         // Si no estaba, lo añadimos y guardamos
         listaEmails.add(emailSenderista);
-        this.guardarDatos();
+        dao.guardarDatos();
         return true;
     }
 
@@ -169,11 +171,11 @@ public class GrupoMontanaLibreria {
      * Busca el email en la lista de participantes ignorando mayúsculas/minúsculas.
      * Si se elimina con éxito, guarda los cambios en el XML.
      *
-     * @param actividad         La actividad de la que se quiere borrar.
-     * @param emailSenderista   El email del senderista a eliminar.
+     * @param actividad       La actividad de la que se quiere borrar.
+     * @param emailSenderista El email del senderista a eliminar.
      * @return true si se eliminó, false si no se encontró en la lista.
      */
-    public boolean eliminarParticipante(TipoActividad actividad, String emailSenderista) {
+    public boolean eliminarParticipante(TipoActividad actividad, String emailSenderista) throws JAXBException {
         if (actividad == null || actividad.getParticipantes() == null) return false;
         List<String> listaEmails = actividad.getParticipantes().getEmailParticipante();
         // Búsqueda manual para borrar ignorando mayúsculas
@@ -187,7 +189,7 @@ public class GrupoMontanaLibreria {
 
         if (emailParaBorrar != null) {
             listaEmails.remove(emailParaBorrar);
-            this.guardarDatos();
+            dao.guardarDatos();
             return true;
         }
         return false;
@@ -238,7 +240,7 @@ public class GrupoMontanaLibreria {
         TipoActividad actividadPopular = null;
         int recordParticipantes = -1;
         // RECORRER LAS ACTIVIDADES
-        for (TipoActividad actividad : datos.getRegistroActividades().getActividad()) {
+        for (TipoActividad actividad : dao.getDatos().getRegistroActividades().getActividad()) {
             int participantesActuales = 0;
             // PROTECCIÓN: Solo contamos si la lista de participantes EXISTE
             if (actividad.getParticipantes() != null) {
@@ -260,19 +262,22 @@ public class GrupoMontanaLibreria {
      * Verifica que el email no esté duplicado antes de añadirlo.
      * Guarda los cambios en el XML automáticamente.
      *
-     * @param nuevo El objeto TipoSenderista a añadir.
+     * @param nuevoSenderista El objeto TipoSenderista a añadir.
      */
-    public void altaSenderista(TipoSenderista nuevo) {
-        if (nuevo == null) return;
-
-        // Evitar duplicados de email antes de guardar
-        if (buscarSenderistaPorEmail(nuevo.getEmail()) != null) {
-            System.out.println("Error: Ya existe un senderista con ese email.");
-            return;
+    public void altaSenderista(TipoSenderista nuevoSenderista) throws JAXBException {
+        if (nuevoSenderista == null || nuevoSenderista.getEmail() == null || nuevoSenderista.getEmail().isEmpty()) {
+            //CAMBIO DEL PRINTLN POR LANZAMIENTO DE EXCEPCION
+            throw new IllegalArgumentException("Los datos del senderista no pueden estar vacios");
         }
-        getListaSenderistas().add(nuevo);
-        this.guardarDatos();
-        System.out.println("Senderista añadido: " + nuevo.getNombre());
+        for (TipoSenderista s : dao.getDatos().getListadoSenderistas().getSenderista()) {
+            if (s.getEmail().equalsIgnoreCase(nuevoSenderista.getEmail())) {
+                throw new IllegalArgumentException("Ya tenemos un senderista con este email");
+            }
+            //GUARDADO EN RAM
+            dao.getDatos().getListadoSenderistas().getSenderista().add(nuevoSenderista);
+            //GUARDADO EN DISCO DURO
+            dao.guardarDatos();
+        }
     }
 
     /**
@@ -282,26 +287,34 @@ public class GrupoMontanaLibreria {
      * @param emailParaBorrar El email del senderista a dar de baja.
      * @return true si se encontró y borró, false en caso contrario.
      */
-    public boolean bajaSenderista(String emailParaBorrar) {
-        TipoSenderista encontrado = buscarSenderistaPorEmail(emailParaBorrar);
-
-        if (encontrado != null) {
-            getListaSenderistas().remove(encontrado);
-            this.guardarDatos();
-            return true;
+    public boolean bajaSenderista(String emailParaBorrar) throws JAXBException {
+        List<TipoSenderista> listaSenderistas = dao.getDatos().getListadoSenderistas().getSenderista();
+        TipoSenderista encontrado = null;
+        for (TipoSenderista s : listaSenderistas) {
+            if (s.getEmail().equalsIgnoreCase(emailParaBorrar)) {
+                encontrado = s;
+                break;
+            }
         }
-        return false;
+        if (encontrado != null) {
+            listaSenderistas.remove(encontrado);
+            dao.guardarDatos();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Registra una nueva actividad en el sistema y guarda los cambios.
      *
-     * @param nueva El objeto TipoActividad a añadir.
+     * @param nuevaActividad El objeto TipoActividad a añadir.
      */
-    public void crearActividad(TipoActividad nueva) {
-        if (nueva == null) return;
-        getListaActividades().add(nueva);
-        this.guardarDatos();
-        System.out.println("Actividad creada.");
+    public void crearActividad(TipoActividad nuevaActividad) throws JAXBException {
+        if (nuevaActividad == null) {
+            throw new IllegalArgumentException("Los datos de la actividad no pueden estar vacios");
+        }
+        dao.getDatos().getRegistroActividades().getActividad().add(nuevaActividad);
+        dao.guardarDatos();
     }
 }
