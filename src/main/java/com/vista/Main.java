@@ -16,10 +16,13 @@ public class Main {
     // 1. Archivo de datos
     private static final String RUTA_XML = "src/main/resources/DiegoFdezLopezgrupoMontanaData.xml";
 
-    // 2. Datos para probar las BÚSQUEDAS (Asegúrate de que existen en tu XML)
-    private static final String BUSQUEDA_NOMBRE = "Juan";
-    private static final String BUSQUEDA_EMAIL = "juan@email.com";
-    private static final String BUSQUEDA_RUTA = "Ruta de los Cares";
+    // 2. Datos para probar las BÚSQUEDAS
+    private static final String BUSQUEDA_NOMBRE_ERROR = "Juan";
+    private static final String BUSQUEDA_NOMBRE_OK = "Diego Fernandez Lopez";
+    private static final String BUSQUEDA_EMAIL_ERROR = "juan@email.com";
+    private static final String BUSQUEDA_EMAIL_OK = "diego@email.com";
+    private static final String BUSQUEDA_RUTA_ERROR = "Ruta de los Cares";
+    private static final String BUSQUEDA_RUTA_OK = "camino dificil";
 
     // 3. Datos para crear un NUEVO SENDERISTA de prueba
     private static final String TEST_EMAIL = "prueba@montana.com";
@@ -69,8 +72,8 @@ public class Main {
         TipoSenderista busquedaNombre = gestion.buscarSenderistaPorNombre(BUSQUEDA_NOMBRE);
         System.out.println("Buscar por Nombre ('" + BUSQUEDA_NOMBRE + "'): " + (busquedaNombre != null ? "Encontrado" : "No encontrado"));
 
-        TipoSenderista busquedaEmail = gestion.buscarSenderistaPorEmail(BUSQUEDA_EMAIL);
-        System.out.println("Buscar por Email ('" + BUSQUEDA_EMAIL + "'): " + (busquedaEmail != null ? "Encontrado" : "No encontrado"));
+        TipoSenderista busquedaEmail = gestion.buscarSenderistaPorEmail(BUSQUEDA_EMAIL_ERROR);
+        System.out.println("Buscar por Email ('" + BUSQUEDA_EMAIL_ERROR + "'): " + (busquedaEmail != null ? "Encontrado" : "No encontrado"));
 
         TipoRuta busquedaRuta = gestion.buscarRutaPorNombre(BUSQUEDA_RUTA);
         System.out.println("Buscar Ruta ('" + BUSQUEDA_RUTA + "'): " + (busquedaRuta != null ? "Encontrada" : "No encontrada"));

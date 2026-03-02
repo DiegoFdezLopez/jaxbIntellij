@@ -287,5 +287,11 @@
             <Valoracion>5</Valoracion>
             <Comentarios>probar si comprobamos que no exista una actividad con el mismo id</Comentarios>
         </Actividad>
+        <Actividad>
+            <NombreRuta>Ruta Inventada de Prueba</NombreRuta>
+            <Participantes/>
+            <Valoracion>5</Valoracion>
+            <Comentarios>Actividad creada por el Test Automático</Comentarios>
+        </Actividad>
     </RegistroActividades>
 </GrupoMontanaData>
