@@ -21,8 +21,8 @@ public class Main {
     private static final String BUSQUEDA_NOMBRE_OK = "Diego Fernandez Lopez";
     private static final String BUSQUEDA_EMAIL_ERROR = "juan@email.com";
     private static final String BUSQUEDA_EMAIL_OK = "diego@email.com";
-    private static final String BUSQUEDA_RUTA_ERROR = "Ruta de los Cares";
-    private static final String BUSQUEDA_RUTA_OK = "camino dificil";
+    private static final String BUSQUEDA_RUTA_ERROR = "camino dificil";
+    private static final String BUSQUEDA_RUTA_OK = "Jultayu";
 
     // 3. Datos para crear un NUEVO SENDERISTA de prueba
     private static final String TEST_EMAIL = "prueba@montana.com";
@@ -68,15 +68,28 @@ public class Main {
         // FASE 3: TEST DE BÚSQUEDAS (Usando Constantes)
         // --------------------------------------------------------
         System.out.println("\n--- FASE 3: Pruebas de Búsqueda ---");
+        System.out.println("\n--- PRUEBAS CON DATOS ERRONEOS ---");
 
-        TipoSenderista busquedaNombre = gestion.buscarSenderistaPorNombre(BUSQUEDA_NOMBRE);
-        System.out.println("Buscar por Nombre ('" + BUSQUEDA_NOMBRE + "'): " + (busquedaNombre != null ? "Encontrado" : "No encontrado"));
+        TipoSenderista busquedaNombre = gestion.buscarSenderistaPorNombre(BUSQUEDA_NOMBRE_ERROR);
+        System.out.println("Buscar por Nombre ('" + BUSQUEDA_NOMBRE_ERROR + "'): " + (busquedaNombre != null ? "Encontrado" : "No encontrado"));
 
         TipoSenderista busquedaEmail = gestion.buscarSenderistaPorEmail(BUSQUEDA_EMAIL_ERROR);
         System.out.println("Buscar por Email ('" + BUSQUEDA_EMAIL_ERROR + "'): " + (busquedaEmail != null ? "Encontrado" : "No encontrado"));
 
-        TipoRuta busquedaRuta = gestion.buscarRutaPorNombre(BUSQUEDA_RUTA);
-        System.out.println("Buscar Ruta ('" + BUSQUEDA_RUTA + "'): " + (busquedaRuta != null ? "Encontrada" : "No encontrada"));
+        TipoRuta busquedaRuta = gestion.buscarRutaPorNombre(BUSQUEDA_RUTA_ERROR);
+        System.out.println("Buscar Ruta ('" + BUSQUEDA_RUTA_ERROR + "'): " + (busquedaRuta != null ? "Encontrada" : "No encontrada"));
+
+        System.out.println("\n--- PRUEBAS CON DATOS CORRECTOS ---");
+
+        busquedaNombre = gestion.buscarSenderistaPorNombre(BUSQUEDA_NOMBRE_OK);
+        System.out.println("Buscar por Nombre ('" + BUSQUEDA_NOMBRE_OK + "'): " + (busquedaNombre != null ? "Encontrado" : "No encontrado"));
+
+        busquedaEmail = gestion.buscarSenderistaPorEmail(BUSQUEDA_EMAIL_OK);
+        System.out.println("Buscar por Email ('" + BUSQUEDA_EMAIL_OK + "'): " + (busquedaEmail != null ? "Encontrado" : "No encontrado"));
+
+        busquedaRuta = gestion.buscarRutaPorNombre(BUSQUEDA_RUTA_OK);
+        System.out.println("Buscar Ruta ('" + BUSQUEDA_RUTA_OK + "'): " + (busquedaRuta != null ? "Encontrada" : "No encontrada"));
+
 
         // --------------------------------------------------------
         // FASE 4: TEST DE ESTADÍSTICAS Y CÁLCULOS
@@ -86,7 +99,7 @@ public class Main {
 
         TipoActividad popular = gestion.actividadMasPopular();
         if (popular != null) {
-            System.out.println("Actividad más popular: Ruta '" + popular.getNombreRuta() + "' (Valoración: " + popular.getValoracion() + ")");
+            System.out.println("Actividad más popular: Ruta " + popular.getNombreRuta());
         } else {
             System.out.println("No hay actividades registradas para calcular popularidad.");
         }
