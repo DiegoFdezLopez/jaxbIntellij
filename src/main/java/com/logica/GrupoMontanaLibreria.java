@@ -26,50 +26,9 @@ public class GrupoMontanaLibreria {
      * @param dao Ruta física donde se encuentra el XML.
      */
     public GrupoMontanaLibreria(GrupoMontanaDAO dao) {
+
         this.dao = dao;
     }
-// ///////////////////////////////////////////////////////////////////////////////////////////
-//    /**
-//     * Carga los datos del grupo desde el fichero XML asociado y los vuelca en memoria.
-//     * Utiliza JAXB para el unmarshalling.
-//     *
-//     * @throws JAXBException si el archivo no existe o el formato es incorrecto.
-//     */
-//    public void cargarDatos() throws JAXBException {
-//        if (!this.archivoXML.exists()) {
-//            throw new JAXBException("No se encuentra el fichero XML");
-//        }
-//        // CONTEXTO
-//        JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
-//        // UNMARSHALLER
-//        Unmarshaller lector = contexto.createUnmarshaller();
-//        // LEER Y GUARDAR
-//        this.datos = (GrupoMontanaData) lector.unmarshal(this.archivoXML);
-//        System.out.println("Datos cargados correctamente.");
-//    }
-
-//    /**
-//     * Guarda el estado actual de los datos en memoria en el fichero XML físico.
-//     * Utiliza JAXB para el marshalling con formato legible (pretty print).
-//     * Captura las excepciones internamente y muestra error por consola si falla.
-//     */
-//    public void guardarDatos() {
-//        try {
-//            // CONTEXTO
-//            JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
-//            // CREACION MARSHALLER
-//            Marshaller marshaller = contexto.createMarshaller();
-//            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");      // buena practica
-//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // pretty para el estilo
-//            // ESCRIBIR "DATOS" EN EL ARCHIVOXML
-//            marshaller.marshal(datos, archivoXML);
-//            System.out.println("Cambios guardados en XML.");
-//        } catch (JAXBException e) {
-//            System.out.println("Error crítico guardando datos: " + e.getMessage());
-//        }
-//    }
-//  ///////////////////////////////////////////////////////////////////////////////////////////
-
 
     /**
      * Obtiene la lista completa de actividades registradas.
@@ -101,7 +60,7 @@ public class GrupoMontanaLibreria {
     }
 
     /**
-     * Busca un senderista utilizando su Email como identificador único.
+     * Busca un senderista utilizando su Email.
      * La búsqueda ignora mayúsculas y minúsculas.
      *
      * @param email El correo electrónico del senderista a buscar.
@@ -113,6 +72,25 @@ public class GrupoMontanaLibreria {
             // Comparamos ignorando mayúsculas
             if (s.getEmail().trim().equalsIgnoreCase(email.trim())) {
                 return s;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Busca un senderista por su nombre.
+     *
+     * @param nombreBusqueda El nombre completo o parcial a buscar.
+     * @return El objeto senderista encontrado o null si no existe coincidencia.
+     */
+    public TipoSenderista buscarSenderistaPorNombre(String nombreBusqueda) {
+        if (nombreBusqueda == null) return null;
+
+        // RECORRER LA LISTA DE TODOS LOS SENDERISTAS
+        for (TipoSenderista senderista : getListaSenderistas()) {
+            // IGNORAMOS MAYUS Y MINUS Y ESPACIOS
+            if (senderista.getNombre().trim().equalsIgnoreCase(nombreBusqueda.trim())) {
+                return senderista;
             }
         }
         return null;
@@ -150,9 +128,7 @@ public class GrupoMontanaLibreria {
         if (actividad.getParticipantes() == null) {
             actividad.setParticipantes(new TipoActividad.Participantes());
         }
-
         List<String> listaEmails = actividad.getParticipantes().getEmailParticipante();
-
         // Si ya está apuntado, no hacemos nada
         // (Usamos un bucle manual para ignorar mayúsculas al comparar emails)
         for (String emailExistente : listaEmails) {
@@ -195,24 +171,6 @@ public class GrupoMontanaLibreria {
         return false;
     }
 
-    /**
-     * Busca un senderista por su nombre.
-     *
-     * @param nombreBusqueda El nombre completo o parcial a buscar.
-     * @return El objeto senderista encontrado o null si no existe coincidencia.
-     */
-    public TipoSenderista buscarSenderistaPorNombre(String nombreBusqueda) {
-        if (nombreBusqueda == null) return null;
-
-        // RECORRER LA LISTA DE TODOS LOS SENDERISTAS
-        for (TipoSenderista senderista : getListaSenderistas()) {
-            // IGNORAMOS MAYUS Y MINUS Y ESPACIOS
-            if (senderista.getNombre().trim().equalsIgnoreCase(nombreBusqueda.trim())) {
-                return senderista;
-            }
-        }
-        return null;
-    }
 
     /**
      * Calcula la edad media de todos los senderistas registrados.
@@ -246,9 +204,6 @@ public class GrupoMontanaLibreria {
             if (actividad.getParticipantes() != null) {
                 participantesActuales = actividad.getParticipantes().getEmailParticipante().size();
             }
-            //AYUDA IA PARA RESOLVER UN EMPATE
-            // IR GUARDANDO LA ACTIVIDAD CON MAS PARTICIPANTES
-            // Usamos > para quedarnos con la primera que encontremos en caso de empate
             if (participantesActuales > recordParticipantes) {
                 actividadPopular = actividad;
                 recordParticipantes = participantesActuales;
@@ -273,11 +228,11 @@ public class GrupoMontanaLibreria {
             if (s.getEmail().equalsIgnoreCase(nuevoSenderista.getEmail())) {
                 throw new IllegalArgumentException("Ya tenemos un senderista con este email");
             }
-            //GUARDADO EN RAM
-            dao.getDatos().getListadoSenderistas().getSenderista().add(nuevoSenderista);
-            //GUARDADO EN DISCO DURO
-            dao.guardarDatos();
         }
+        //GUARDADO EN RAM
+        dao.getDatos().getListadoSenderistas().getSenderista().add(nuevoSenderista);
+        //GUARDADO EN DISCO DURO
+        dao.guardarDatos();
     }
 
     /**
