@@ -200,7 +200,7 @@ public class GrupoMontanaLibreria {
         // RECORRER LAS ACTIVIDADES
         for (TipoActividad actividad : dao.getDatos().getRegistroActividades().getActividad()) {
             int participantesActuales = 0;
-            // PROTECCIÓN: Solo contamos si la lista de participantes EXISTE
+            // SI EXISTE LA LISTA CONTAMOS
             if (actividad.getParticipantes() != null) {
                 participantesActuales = actividad.getParticipantes().getEmailParticipante().size();
             }

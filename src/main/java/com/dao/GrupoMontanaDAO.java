@@ -43,8 +43,8 @@ public class GrupoMontanaDAO {
     public void guardarDatos() throws JAXBException {
         JAXBContext contexto = JAXBContext.newInstance(GrupoMontanaData.class);
         Marshaller marshaller = contexto.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // Para que salga indentado y bonito
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");      // Tu buena práctica recuperada
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); // ESTILO
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         marshaller.marshal(this.datos, this.archivoXML);
     }
 
