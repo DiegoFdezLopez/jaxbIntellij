@@ -259,7 +259,6 @@ public class GrupoMontanaLibreria {
             return false;
         }
     }
-
     /**
      * Registra una nueva actividad en el sistema y guarda los cambios.
      *

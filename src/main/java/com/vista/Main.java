@@ -38,11 +38,11 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("=====================================================");
-        System.out.println("  INICIANDO BATERÍA TOTAL DE PRUEBAS - SISTEMA");
+        System.out.println("  INICIANDO BATERÍA DE PRUEBAS   ");
         System.out.println("=====================================================\n");
 
         // --------------------------------------------------------
-        // FASE 1: INICIALIZACIÓN (Test de DAO y Carga)
+        // TEST CARGA DE DATOS
         // --------------------------------------------------------
         GrupoMontanaDAO dao = new GrupoMontanaDAO(RUTA_XML);
         GrupoMontanaLibreria gestion = null;
@@ -57,15 +57,16 @@ public class Main {
         }
 
         // --------------------------------------------------------
-        // FASE 2: TEST DE LECTURA DE LISTAS COMPLETAS
+        // TEST DE LECTURA DE LISTAS COMPLETAS
         // --------------------------------------------------------
-        System.out.println("--- FASE 2: Comprobando carga de catálogos ---");
+        System.out.println("--- Comprobación carga de catálogos ---");
         System.out.println("Total Senderistas: " + gestion.getListaSenderistas().size());
         System.out.println("Total Rutas: " + gestion.getListaRutas().size());
         System.out.println("Total Actividades: " + gestion.getListaActividades().size());
 
+
         // --------------------------------------------------------
-        // FASE 3: TEST DE BÚSQUEDAS (Usando Constantes)
+        // TEST DE BÚSQUEDAS
         // --------------------------------------------------------
         System.out.println("\n--- FASE 3: Pruebas de Búsqueda ---");
         System.out.println("\n--- PRUEBAS CON DATOS ERRONEOS ---");
@@ -92,9 +93,9 @@ public class Main {
 
 
         // --------------------------------------------------------
-        // FASE 4: TEST DE ESTADÍSTICAS Y CÁLCULOS
+        // TEST DE ESTADÍSTICAS Y CÁLCULOS
         // --------------------------------------------------------
-        System.out.println("\n--- FASE 4: Cálculos y Lógica de Negocio ---");
+        System.out.println("\n--- Cálculos y Lógica de Negocio ---");
         System.out.printf("Edad media del club: %.2f años.\n", gestion.edadMediaSenderistas());
 
         TipoActividad popular = gestion.actividadMasPopular();
@@ -105,9 +106,9 @@ public class Main {
         }
 
         // --------------------------------------------------------
-        // FASE 5: TEST DE MODIFICACIÓN DE DATOS (Usando Constantes)
+        // TEST DE MODIFICACIÓN DE DATOS
         // --------------------------------------------------------
-        System.out.println("\n--- FASE 5: Altas y Control de Excepciones ---");
+        System.out.println("\n--- Altas y Control de Excepciones ---");
 
         TipoSenderista socioPrueba = new TipoSenderista();
         socioPrueba.setNombre(TEST_NOMBRE);
@@ -119,7 +120,7 @@ public class Main {
             gestion.altaSenderista(socioPrueba);
             System.out.println("Alta Senderista OK: Socio guardado en el XML.");
 
-            System.out.println("Forzando error de duplicado (mismo email)...");
+            System.out.println("Forzando error de duplicado (mismo email)");
             gestion.altaSenderista(socioPrueba);
         } catch (IllegalArgumentException e) {
             System.out.println("EXCEPCIÓN CAPTURADA CORRECTAMENTE: " + e.getMessage());
@@ -140,9 +141,9 @@ public class Main {
         }
 
         // --------------------------------------------------------
-        // FASE 6: TEST DE PARTICIPANTES EN ACTIVIDADES
+        // TEST DE PARTICIPANTES EN ACTIVIDADES
         // --------------------------------------------------------
-        System.out.println("\n--- FASE 6: Gestión de Participantes ---");
+        System.out.println("\n--- Gestión de Participantes ---");
         try {
             List<TipoActividad> listaAct = gestion.getListaActividades();
             if (!listaAct.isEmpty()) {
@@ -159,7 +160,7 @@ public class Main {
         }
 
         // --------------------------------------------------------
-        // FASE 7: LIMPIEZA (Usando Constantes para asegurar precisión)
+        // LIMPIEZA 
         // --------------------------------------------------------
         System.out.println("\n--- FASE 7: Bajas y Limpieza de Datos ---");
         try {
