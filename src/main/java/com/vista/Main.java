@@ -44,6 +44,8 @@ public class Main {
         // --------------------------------------------------------
         // TEST CARGA DE DATOS
         // --------------------------------------------------------
+
+
         GrupoMontanaDAO dao = new GrupoMontanaDAO(RUTA_XML);
         GrupoMontanaLibreria gestion = null;
 

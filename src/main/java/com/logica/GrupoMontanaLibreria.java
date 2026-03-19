@@ -219,6 +219,8 @@ public class GrupoMontanaLibreria {
      *
      * @param nuevoSenderista El objeto TipoSenderista a añadir.
      */
+
+    //
     public void altaSenderista(TipoSenderista nuevoSenderista) throws JAXBException {
         if (nuevoSenderista == null || nuevoSenderista.getEmail() == null || nuevoSenderista.getEmail().isEmpty()) {
             //CAMBIO DEL PRINTLN POR LANZAMIENTO DE EXCEPCION
