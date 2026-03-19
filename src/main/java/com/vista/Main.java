@@ -51,7 +51,7 @@ public class Main {
 
         try {
             dao.cargarDatos();
-            gestion = new GrupoMontanaLibreria(dao);
+            gestion = new GrupoMontanaLibreria(dao); // RECIBE EL DAO DE FUERA INYECCION MANUAL
             System.out.println("FASE 1 OK: Datos XML cargados y Lógica instanciada.\n");
         } catch (Exception e) {
             System.out.println("ERROR CRÍTICO al arrancar: " + e.getMessage());

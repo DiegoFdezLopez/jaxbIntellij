@@ -270,6 +270,7 @@ public class GrupoMontanaLibreria {
         if (nuevaActividad == null) {
             throw new IllegalArgumentException("Los datos de la actividad no pueden estar vacios");
         }
+        //MODIFICANDO EN MEMORIA
         dao.getDatos().getRegistroActividades().getActividad().add(nuevaActividad);
         dao.guardarDatos();
     }
